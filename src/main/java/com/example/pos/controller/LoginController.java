@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.pos.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,4 +45,3 @@ public class LoginController {
         }
     }
 }
-

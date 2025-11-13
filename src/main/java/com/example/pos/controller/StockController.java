@@ -9,18 +9,27 @@ import javafx.scene.control.*;
 
 public class StockController {
 
-    @FXML private TextField barcodeField;
-    @FXML private TextField nameField;
-    @FXML private TextField priceField;
-    @FXML private TextField stockField;
-    @FXML private TableView<Product> stockTable;
-    @FXML private TableColumn<Product, String> colBarcode;
-    @FXML private TableColumn<Product, String> colName;
-    @FXML private TableColumn<Product, Double> colPrice;
-    @FXML private TableColumn<Product, Integer> colStock;
+    @FXML
+    private TextField barcodeField;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField priceField;
+    @FXML
+    private TextField stockField;
+    @FXML
+    private TableView<Product> stockTable;
+    @FXML
+    private TableColumn<Product, String> colBarcode;
+    @FXML
+    private TableColumn<Product, String> colName;
+    @FXML
+    private TableColumn<Product, Double> colPrice;
+    @FXML
+    private TableColumn<Product, Integer> colStock;
 
-    private ProductService productService = new ProductService();
-    private ObservableList<Product> productList = FXCollections.observableArrayList();
+    private final ProductService productService = new ProductService();
+    private final ObservableList<Product> productList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -43,10 +52,24 @@ public class StockController {
         double price = Double.parseDouble(priceField.getText());
         int stock = Integer.parseInt(stockField.getText());
 
-        Product p = new Product(0, barcode, name, price, stock);
-        if (productService.addProduct(p)) {
-            loadProducts();
-            barcodeField.clear(); nameField.clear(); priceField.clear(); stockField.clear();
+        // Mövcud barkodu yoxla
+        Product existing = productService.getProductByBarcode(barcode);
+
+        if (existing != null) {
+            // Əgər məhsul varsa → stok artır
+            int newStock = existing.getStock() + stock;
+            productService.updateStock(existing.getId(), newStock);
+        } else {
+            // Əks halda yeni məhsul əlavə et
+            Product p = new Product(0, barcode, name, price, stock);
+            productService.addProduct(p);
         }
+
+        // Cədvəli yenilə və sahələri təmizlə
+        loadProducts();
+        barcodeField.clear();
+        nameField.clear();
+        priceField.clear();
+        stockField.clear();
     }
 }

@@ -1,0 +1,17 @@
+.table-view {
+    -fx-selection-bar: #3498db;
+    -fx-selection-bar-non-focused: #85c1e9;
+}
+
+.table-row-cell:filled:even {
+    -fx-background-color: #ecf0f1;
+}
+
+.table-row-cell:filled:odd {
+    -fx-background-color: white;
+}
+
+.button:hover {
+    -fx-background-color: #2ecc71;
+    -fx-cursor: hand;
+}

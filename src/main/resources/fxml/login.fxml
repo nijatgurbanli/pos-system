@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.controller.LoginController"
+            prefWidth="400" prefHeight="300">
+    <children>
+        <VBox spacing="10" alignment="CENTER" layoutX="100" layoutY="60">
+            <Label text="Kassir Girişi" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <TextField fx:id="usernameField" promptText="İstifadəçi adı" prefWidth="200"/>
+            <PasswordField fx:id="passwordField" promptText="Şifrə" prefWidth="200"/>
+            <Button text="Daxil ol" onAction="#handleLogin" prefWidth="200"/>
+            <Label fx:id="errorLabel" textFill="red"/>
+        </VBox>
+    </children>
+</AnchorPane>

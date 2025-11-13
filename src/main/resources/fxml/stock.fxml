@@ -1,0 +1,35 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.pos.controller.StockController"
+      spacing="10">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <Label text="Stok İdarəetməsi" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="barcodeField" promptText="Barkod" />
+        <TextField fx:id="nameField" promptText="Məhsul adı" />
+        <TextField fx:id="priceField" promptText="Qiymət" prefWidth="60" />
+        <TextField fx:id="stockField" promptText="Stok" prefWidth="60" />
+        <Button text="Əlavə et" onAction="#handleAddProduct" />
+    </HBox>
+
+    <TableView fx:id="stockTable" prefHeight="400">
+        <columns>
+            <TableColumn text="Barkod" fx:id="colBarcode"/>
+            <TableColumn text="Məhsul" fx:id="colName"/>
+            <TableColumn text="Qiymət" fx:id="colPrice"/>
+            <TableColumn text="Stok" fx:id="colStock"/>
+        </columns>
+    </TableView>
+</VBox>

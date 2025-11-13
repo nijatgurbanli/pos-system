@@ -1,0 +1,41 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.pos.controller.SalesController"
+      spacing="10">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <Label text="Satış" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="barcodeField" promptText="Barkod"/>
+        <TextField fx:id="quantityField" promptText="Say"/>
+        <Button text="Əlavə et" onAction="#handleAddToCart"/>
+    </HBox>
+
+    <TableView fx:id="cartTable" prefHeight="300">
+        <columns>
+            <TableColumn text="Barkod" fx:id="colBarcode"/>
+            <TableColumn text="Məhsul" fx:id="colName"/>
+            <TableColumn text="Qiymət" fx:id="colPrice"/>
+            <TableColumn text="Say" fx:id="colQuantity"/>
+            <TableColumn text="Cəmi" fx:id="colTotal"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="20" alignment="CENTER_RIGHT">
+        <Label text="Ümumi:"/>
+        <Label fx:id="totalLabel" text="0.00 ₼"/>
+        <Button text="Satışı Təsdiqlə" onAction="#handleConfirmSale"/>
+        <Button text="Təmizlə" onAction="#handleClear"/>
+    </HBox>
+</VBox>

@@ -22,6 +22,11 @@ public class MainController {
         loadPane("/fxml/sales.fxml");
     }
 
+    @FXML
+    public void showUserPane() {
+        loadPane("/fxml/user.fxml");
+    }
+
     private void loadPane(String fxmlPath) {
         try {
             Pane pane = FXMLLoader.load(getClass().getResource(fxmlPath));

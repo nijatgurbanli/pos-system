@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 public class StockController {
 
     @FXML
+    private TextField idField;
+    @FXML
     private TextField barcodeField;
     @FXML
     private TextField nameField;
@@ -21,6 +23,8 @@ public class StockController {
     private TextField searchField;   // 🔍 AXTARIŞ ÜÇÜN
     @FXML
     private TableView<Product> stockTable;
+    @FXML
+    private TableColumn<Product, Integer> colId;
     @FXML
     private TableColumn<Product, String> colBarcode;
     @FXML
@@ -36,6 +40,7 @@ public class StockController {
 
     @FXML
     public void initialize() {
+        colId.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getId()));
         colBarcode.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getBarcode()));
         colName.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getName()));
         colPrice.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getPrice()));
@@ -73,6 +78,7 @@ public class StockController {
 
     @FXML
     public void handleAddProduct() {
+//        int id = Integer.parseInt(idField.getText());
         String barcode = barcodeField.getText();
         String name = nameField.getText();
         double price = Double.parseDouble(priceField.getText());
@@ -84,7 +90,7 @@ public class StockController {
             int newStock = existing.getStock() + stock;
             productService.updateStock(existing.getId(), newStock);
         } else {
-            Product p = new Product(0, barcode, name, price, stock);
+            Product p = new Product(1, barcode, name, price, stock);
             productService.addProduct(p);
         }
 

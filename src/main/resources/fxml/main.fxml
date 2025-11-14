@@ -25,8 +25,20 @@
 
             <children>
 
+                <!-- Satış düyməsi -->
+                <Button text=" Satış" onAction="#showSalesPane" prefWidth="180"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT;">
+                    <graphic>
+                        <ImageView fitWidth="50" fitHeight="50">
+                            <image>
+                                <Image url="@/icons/cart.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
                 <!-- Stok İdarəetməsi düyməsi -->
-                <Button text=" Stok İdarəetməsi" onAction="#showStockPane" prefWidth="180"
+                <Button text=" Stok" onAction="#showStockPane" prefWidth="180"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT;">
                     <graphic>
                         <ImageView fitWidth="50" fitHeight="50">
@@ -37,13 +49,12 @@
                     </graphic>
                 </Button>
 
-                <!-- Satış düyməsi -->
-                <Button text=" Satış" onAction="#showSalesPane" prefWidth="180"
+                <Button text=" İstifadəçi" onAction="#showUserPane" prefWidth="180"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT;">
                     <graphic>
                         <ImageView fitWidth="50" fitHeight="50">
                             <image>
-                                <Image url="@/icons/cart.png"/>
+                                <Image url="@/icons/user.png"/>
                             </image>
                         </ImageView>
                     </graphic>

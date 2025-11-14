@@ -9,7 +9,7 @@
             prefWidth="400" prefHeight="300">
     <children>
         <VBox spacing="10" alignment="CENTER" layoutX="100" layoutY="60">
-            <Label text="Kassir Girişi" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <Label text="Giriş" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
             <TextField fx:id="usernameField" promptText="İstifadəçi adı" prefWidth="200"/>
             <PasswordField fx:id="passwordField" promptText="Şifrə" prefWidth="200"/>
             <Button text="Daxil ol" onAction="#handleLogin" prefWidth="200"/>

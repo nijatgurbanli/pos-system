@@ -26,11 +26,12 @@
 
     <!-- 🔎 Axtarış inputu -->
     <HBox spacing="10">
-        <TextField fx:id="searchField" promptText="Axtar: Barkod / Məhsul adı" prefWidth="250"/>
+        <TextField fx:id="searchField" promptText="Axtar: Barkod və ya məhsul adı" prefWidth="250"/>
     </HBox>
 
     <TableView fx:id="stockTable" prefHeight="400">
         <columns>
+            <TableColumn text="Id" fx:id="colId"/>
             <TableColumn text="Barkod" fx:id="colBarcode"/>
             <TableColumn text="Məhsul" fx:id="colName"/>
             <TableColumn text="Qiymət" fx:id="colPrice"/>

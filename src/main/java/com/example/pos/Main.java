@@ -12,7 +12,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Market POS Sistemi - Giriş");
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setMaximized(false);
         stage.show();
     }
 

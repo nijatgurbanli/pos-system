@@ -18,6 +18,8 @@ public class StockController {
     @FXML
     private TextField stockField;
     @FXML
+    private TextField searchField;   // 🔍 AXTARIŞ ÜÇÜN
+    @FXML
     private TableView<Product> stockTable;
     @FXML
     private TableColumn<Product, String> colBarcode;
@@ -30,6 +32,7 @@ public class StockController {
 
     private final ProductService productService = new ProductService();
     private final ObservableList<Product> productList = FXCollections.observableArrayList();
+    private final ObservableList<Product> filteredList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize() {
@@ -37,12 +40,35 @@ public class StockController {
         colName.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getName()));
         colPrice.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getPrice()));
         colStock.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getStock()));
+
         loadProducts();
+
+        // 🔍 REAL-TIME SEARCH (Canlı axtarış)
+        searchField.textProperty().addListener((obs, oldValue, newValue) -> {
+            filterProducts(newValue);
+        });
     }
 
     private void loadProducts() {
         productList.setAll(productService.getAllProducts());
-        stockTable.setItems(productList);
+        filteredList.setAll(productList);
+        stockTable.setItems(filteredList);
+    }
+
+    // 🔍 Axtarış filtri
+    private void filterProducts(String keyword) {
+        if (keyword == null || keyword.isEmpty()) {
+            filteredList.setAll(productList);
+            return;
+        }
+
+        String lower = keyword.toLowerCase();
+        filteredList.setAll(
+                productList.filtered(p ->
+                        p.getName().toLowerCase().contains(lower) ||
+                        p.getBarcode().toLowerCase().contains(lower)
+                )
+        );
     }
 
     @FXML
@@ -52,21 +78,18 @@ public class StockController {
         double price = Double.parseDouble(priceField.getText());
         int stock = Integer.parseInt(stockField.getText());
 
-        // Mövcud barkodu yoxla
         Product existing = productService.getProductByBarcode(barcode);
 
         if (existing != null) {
-            // Əgər məhsul varsa → stok artır
             int newStock = existing.getStock() + stock;
             productService.updateStock(existing.getId(), newStock);
         } else {
-            // Əks halda yeni məhsul əlavə et
             Product p = new Product(0, barcode, name, price, stock);
             productService.addProduct(p);
         }
 
-        // Cədvəli yenilə və sahələri təmizlə
         loadProducts();
+
         barcodeField.clear();
         nameField.clear();
         priceField.clear();

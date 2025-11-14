@@ -24,6 +24,11 @@
         <Button text="Əlavə et" onAction="#handleAddProduct" />
     </HBox>
 
+    <!-- 🔎 Axtarış inputu -->
+    <HBox spacing="10">
+        <TextField fx:id="searchField" promptText="Axtar: Barkod / Məhsul adı" prefWidth="250"/>
+    </HBox>
+
     <TableView fx:id="stockTable" prefHeight="400">
         <columns>
             <TableColumn text="Barkod" fx:id="colBarcode"/>

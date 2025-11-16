@@ -1,0 +1,34 @@
+
+user
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+product
+
+CREATE TABLE IF NOT EXISTS product (
+    id SERIAL PRIMARY KEY,
+    barcode VARCHAR(50) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    price NUMERIC(10,2) NOT NULL,
+    stock INT NOT NULL
+);
+
+sales
+
+CREATE TABLE IF NOT EXISTS sales (
+    id SERIAL PRIMARY KEY,
+    product_id INT REFERENCES product(id),
+    quantity INT NOT NULL,
+    total NUMERIC(10,2) NOT NULL,
+    sale_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+

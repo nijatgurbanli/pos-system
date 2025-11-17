@@ -35,7 +35,7 @@ public class UserController {
         colRole.setCellValueFactory(new PropertyValueFactory<>("role"));
         colCreated.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
 
-        roleCombo.getItems().addAll("ADMIN", "CASHIER", "MANAGER");
+        roleCombo.getItems().addAll("Admin", "Kassir", "Menecer");
 
         addActionButtons();
         loadUsers();

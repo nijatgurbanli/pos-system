@@ -10,6 +10,11 @@ public class Session {
     }
 
     public static String getUsername() { return username; }
-    public static String getRole() { return role; }
-}
 
+    public static String getRole() { return role; }
+
+    public static void clear() {
+        username = null;
+        role = null;
+    }
+}

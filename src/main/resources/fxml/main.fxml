@@ -8,6 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.pos.controller.MainController"
             prefWidth="900" prefHeight="600"
@@ -26,7 +27,7 @@
             <children>
 
                 <!-- Satış düyməsi -->
-                <Button text=" Satış" onAction="#showSalesPane" prefWidth="180"
+                <Button fx:id="salesBtn" text=" Satış" onAction="#showSalesPane" prefWidth="180"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT;">
                     <graphic>
                         <ImageView fitWidth="50" fitHeight="50">
@@ -38,7 +39,7 @@
                 </Button>
 
                 <!-- Stok İdarəetməsi düyməsi -->
-                <Button text=" Stok" onAction="#showStockPane" prefWidth="180"
+                <Button fx:id="stockBtn" text=" Stok" onAction="#showStockPane" prefWidth="180"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT;">
                     <graphic>
                         <ImageView fitWidth="50" fitHeight="50">
@@ -49,7 +50,7 @@
                     </graphic>
                 </Button>
 
-                <Button text=" İstifadəçi" onAction="#showUserPane" prefWidth="180"
+                <Button fx:id="userBtn" text=" İstifadəçi" onAction="#showUserPane" prefWidth="180"
                         style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT;">
                     <graphic>
                         <ImageView fitWidth="50" fitHeight="50">
@@ -68,4 +69,14 @@
         <StackPane fx:id="contentPane"
                    style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15;"/>
     </center>
+
+
+    <top>
+        <VBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label fx:id="roleLabel" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;"/>
+        </VBox>
+    </top>
 </BorderPane>

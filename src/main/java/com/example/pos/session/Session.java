@@ -9,12 +9,7 @@ public class Session {
         role = r;
     }
 
-    public static String getUsername() {
-        return username;
-    }
-
-    public static String getRole() {
-        return role;
-    }
+    public static String getUsername() { return username; }
+    public static String getRole() { return role; }
 }
 

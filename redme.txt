@@ -29,6 +29,15 @@ CREATE TABLE IF NOT EXISTS sales (
     sale_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+audit log
+
+CREATE TABLE audit_log (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(50),
+    action VARCHAR(50),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 
 

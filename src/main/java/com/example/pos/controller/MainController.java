@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class MainController {
@@ -116,7 +117,7 @@ public class MainController {
 
             ps.setString(1, username);
             ps.setString(2, "LOGOUT");
-            ps.setString(3, LocalDateTime.now().toString());
+            ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
 
             ps.executeUpdate();
 

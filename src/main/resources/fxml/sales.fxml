@@ -48,4 +48,7 @@
         <Button text="Satışı Təsdiqlə" onAction="#handleConfirmSale"/>
         <Button text="Təmizlə" onAction="#handleClear"/>
     </HBox>
+
+    <!-- Status göstərici -->
+    <Label fx:id="statusLabel" text="" style="-fx-text-fill: green; -fx-font-weight: bold;"/>
 </VBox>

@@ -4,10 +4,12 @@ import com.example.pos.model.Product;
 import com.example.pos.service.ProductService;
 import com.example.pos.service.SaleService;
 import com.example.pos.session.Session;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.Duration;
 
 public class SalesController {
 
@@ -35,6 +37,8 @@ public class SalesController {
     private RadioButton cardRadio;
     @FXML
     private ToggleGroup paymentGroup;
+    @FXML
+    private Label statusLabel;
 
 
     private final ProductService productService = new ProductService();
@@ -118,25 +122,83 @@ public class SalesController {
 
     @FXML
     public void handleConfirmSale() {
+        if (cartList.isEmpty()) {
+            showStatus("Səbət boşdur! Satış uğursuz oldu.", false);
+            return;
+        }
 
-        String paymentType = cashRadio.isSelected() ? "CASH" : "CARD";
+        String paymentType;
+        if (cashRadio.isSelected()) paymentType = "CASH";
+        else if (cardRadio.isSelected()) paymentType = "CARD";
+        else {
+            showStatus("Ödəniş növü seçilməyib!", false);
+            return;
+        }
+
+        boolean success = true;
         String username = Session.getUsername();
 
         for (Product p : cartList) {
-            saleService.recordSale(
+            try {
+                saleService.recordSale(
                     p.getId(),
                     p.getQuantity(),
                     p.getTotal(),
                     paymentType,
-                    username       // LOGIN OLAN USER ID
+                    username
             );
 
             Product dbProduct = productService.getProductByBarcode(p.getBarcode());
             productService.updateStock(dbProduct.getId(), dbProduct.getStock() - p.getQuantity());
+            } catch (Exception e) {
+                e.printStackTrace();
+                success = false;
+                break;
+            }
         }
 
-        handleClear();
+        if (success) {
+            showStatus("Satış uğurla tamamlandı!", true);
+            handleClear();
+        } else {
+            showStatus("Satış zamanı xəta baş verdi!", false);
+        }
     }
+
+    // Yeni metod: status göstər və 2 saniyədən sonra itir
+    private void showStatus(String message, boolean success) {
+        statusLabel.setText(message);
+        statusLabel.setStyle(success
+                ? "-fx-text-fill: green; -fx-font-weight: bold;"
+                : "-fx-text-fill: red; -fx-font-weight: bold;");
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        pause.setOnFinished(event -> statusLabel.setText(""));
+        pause.play();
+    }
+
+
+//    @FXML
+//    public void handleConfirmSale() {
+//
+//        String paymentType = cashRadio.isSelected() ? "CASH" : "CARD";
+//        String username = Session.getUsername();
+//
+//        for (Product p : cartList) {
+//            saleService.recordSale(
+//                    p.getId(),
+//                    p.getQuantity(),
+//                    p.getTotal(),
+//                    paymentType,
+//                    username
+//            );
+//
+//            Product dbProduct = productService.getProductByBarcode(p.getBarcode());
+//            productService.updateStock(dbProduct.getId(), dbProduct.getStock() - p.getQuantity());
+//        }
+//
+//        handleClear();
+//    }
 
 
 }

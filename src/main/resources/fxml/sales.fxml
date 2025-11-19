@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.RadioButton?>
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.pos.controller.SalesController"
       spacing="10">
@@ -31,6 +32,15 @@
             <TableColumn text="Cəmi" fx:id="colTotal"/>
         </columns>
     </TableView>
+
+
+    <!-- ⭐ ÖDƏNİŞ TİPİ SEÇİMİ -->
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <Label text="Ödəniş növü:"/>
+
+        <RadioButton text="Nağd" toggleGroup="$paymentGroup" fx:id="cashRadio"/>
+        <RadioButton text="Kart" toggleGroup="$paymentGroup" fx:id="cardRadio"/>
+    </HBox>
 
     <HBox spacing="20" alignment="CENTER_RIGHT">
         <Label text="Ümumi:"/>

@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS sales (
     product_id INT REFERENCES product(id),
     quantity INT NOT NULL,
     total NUMERIC(10,2) NOT NULL,
+    payment_type VARCHAR(20) NOT NULL,
+    username VARCHAR  NOT NULL,
     sale_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

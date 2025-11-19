@@ -13,6 +13,10 @@ public class User {
         this.createdAt = createdAt;
     }
 
+    public User() {
+
+    }
+
     public int getId() { return id; }
     public String getUsername() { return username; }
     public String getRole() { return role; }

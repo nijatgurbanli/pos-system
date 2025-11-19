@@ -3,6 +3,7 @@ package com.example.pos.controller;
 import com.example.pos.model.Product;
 import com.example.pos.service.ProductService;
 import com.example.pos.service.SaleService;
+import com.example.pos.session.Session;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,20 +11,37 @@ import javafx.scene.control.*;
 
 public class SalesController {
 
-    @FXML private TextField barcodeField;
-    @FXML private TextField quantityField;
-    @FXML private TableView<Product> cartTable;
-    @FXML private TableColumn<Product, String> colBarcode;
-    @FXML private TableColumn<Product, String> colName;
-    @FXML private TableColumn<Product, Double> colPrice;
-    @FXML private TableColumn<Product, Integer> colQuantity;
-    @FXML private TableColumn<Product, Double> colTotal;
-    @FXML private Label totalLabel;
+    @FXML
+    private TextField barcodeField;
+    @FXML
+    private TextField quantityField;
+    @FXML
+    private TableView<Product> cartTable;
+    @FXML
+    private TableColumn<Product, String> colBarcode;
+    @FXML
+    private TableColumn<Product, String> colName;
+    @FXML
+    private TableColumn<Product, Double> colPrice;
+    @FXML
+    private TableColumn<Product, Integer> colQuantity;
+    @FXML
+    private TableColumn<Product, Double> colTotal;
+    @FXML
+    private Label totalLabel;
+    @FXML
+    private RadioButton cashRadio;
+    @FXML
+    private RadioButton cardRadio;
+    @FXML
+    private ToggleGroup paymentGroup;
+
 
     private final ProductService productService = new ProductService();
     private final SaleService saleService = new SaleService();
     private final ObservableList<Product> cartList = FXCollections.observableArrayList();
     private double total = 0.0;
+
 
     @FXML
     public void initialize() {
@@ -33,6 +51,12 @@ public class SalesController {
         colQuantity.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getQuantity()));
         colTotal.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getTotal()));
         cartTable.setItems(cartList);
+
+        paymentGroup = new ToggleGroup();
+        cashRadio.setToggleGroup(paymentGroup);
+        cardRadio.setToggleGroup(paymentGroup);
+
+        cashRadio.setSelected(true); // Default nağd olsun
     }
 
     @FXML
@@ -75,15 +99,15 @@ public class SalesController {
         cartTable.refresh();
     }
 
-    @FXML
-    public void handleConfirmSale() {
-        for (Product p : cartList) {
-            saleService.recordSale(p.getId(), p.getQuantity(), p.getTotal());
-            Product dbProduct = productService.getProductByBarcode(p.getBarcode());
-            productService.updateStock(dbProduct.getId(), dbProduct.getStock() - p.getQuantity());
-        }
-        handleClear();
-    }
+//    @FXML
+//    public void handleConfirmSale() {
+//        for (Product p : cartList) {
+//            saleService.recordSale(p.getId(), p.getQuantity(), p.getTotal());
+//            Product dbProduct = productService.getProductByBarcode(p.getBarcode());
+//            productService.updateStock(dbProduct.getId(), dbProduct.getStock() - p.getQuantity());
+//        }
+//        handleClear();
+//    }
 
     @FXML
     public void handleClear() {
@@ -91,4 +115,28 @@ public class SalesController {
         total = 0;
         totalLabel.setText("0.00 ₼");
     }
+
+    @FXML
+    public void handleConfirmSale() {
+
+        String paymentType = cashRadio.isSelected() ? "CASH" : "CARD";
+        String username = Session.getUsername();
+
+        for (Product p : cartList) {
+            saleService.recordSale(
+                    p.getId(),
+                    p.getQuantity(),
+                    p.getTotal(),
+                    paymentType,
+                    username       // LOGIN OLAN USER ID
+            );
+
+            Product dbProduct = productService.getProductByBarcode(p.getBarcode());
+            productService.updateStock(dbProduct.getId(), dbProduct.getStock() - p.getQuantity());
+        }
+
+        handleClear();
+    }
+
+
 }

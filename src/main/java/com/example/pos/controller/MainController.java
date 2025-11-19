@@ -32,17 +32,17 @@ public class MainController {
     private Button logoutBtn;
     @FXML
     private Label roleLabel;
-    @FXML
-    private Label welcomeLabel;
+//    @FXML
+//    private Label welcomeLabel;
 
     @FXML
     public void initialize() {
         String role = Session.getRole();
-        String username = Session.getUsername();
+//        String username = Session.getUsername();
 
         // Rol və istifadəçi adı UI-da göstərilir
         roleLabel.setText("Rol: " + role);
-        welcomeLabel.setText("Xoş gəlmisiniz, " + username + "!");
+//        welcomeLabel.setText("Xoş gəlmisiniz, " + username + "!");
 
         // Rol əsasında düymələrin görünməsini idarə etmək
         applyRolePermissions(role);

@@ -1,3 +1,11 @@
+Java 19
+Main->Edit configurations->Modify options->VM options seçib
+"--module-path "C:\Users\nijat.gurbanli\Downloads\javafx-sdk-21.0.9\lib" --add-modules javafx.controls,javafx.fxml"
+əlavə edirsən javaFx üçün.
+
+
+
+
 
 user
 
